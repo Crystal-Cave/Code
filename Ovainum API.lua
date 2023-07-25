@@ -15,7 +15,7 @@ function Ovainum:GetNearestPlayer(radius)
 	end
 	
 	for _, model in E_workspace:GetDescendants() do
-		if model:IsA("Model") and players:GetPlayerFromCharacter(model) ~= nil and Ovainum:IsInRadiusOf(LP_Char, model, radius) == true then
+		if model:IsA("Model") and players:GetPlayerFromCharacter(model) ~= nil and players:GetPlayerFromCharacter(model) ~= LP and Ovainum:IsInRadiusOf(LP_Char, model, radius) == true then
 			table.insert(T_players, players:GetPlayerFromCharacter(model))
 		end 
 	end
