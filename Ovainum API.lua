@@ -11,12 +11,13 @@ function Ovainum:GetNearbyPlayers(plr, radius)
 	if plr.Character ~= nil then
 		Plr_Char = plr.Character
 	else
-		return false
+		return {false}
 	end
 	
 	for _, model in E_workspace:GetDescendants() do
 		if model:IsA("Model") and players:GetPlayerFromCharacter(model) ~= nil and players:GetPlayerFromCharacter(model) ~= plr and Ovainum:IsInRadiusOf(Plr_Char, model, radius) == true then
 			table.insert(T_players, players:GetPlayerFromCharacter(model))
+			cout += 1
 		end 
 	end
 	
