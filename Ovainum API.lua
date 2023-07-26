@@ -2,25 +2,25 @@ local Ovainum = {}
 
 local E_workspace = game:GetService("Workspace")
 local players = game:GetService("Players")
-local LP = players.LocalPlayer
 
-function Ovainum:GetNearestPlayer(radius)
+function Ovainum:GetNearbyPlayers(plr, radius)
 	local T_players = {}
-	local LP_Char
+	local Plr_Char
+	local cout = 0
 	
-	if LP.Character ~= nil then
-		LP_Char = LP.Character
+	if plr.Character ~= nil then
+		Plr_Char = plr.Character
 	else
 		return false
 	end
 	
 	for _, model in E_workspace:GetDescendants() do
-		if model:IsA("Model") and players:GetPlayerFromCharacter(model) ~= nil and players:GetPlayerFromCharacter(model) ~= LP and Ovainum:IsInRadiusOf(LP_Char, model, radius) == true then
+		if model:IsA("Model") and players:GetPlayerFromCharacter(model) ~= nil and players:GetPlayerFromCharacter(model) ~= plr and Ovainum:IsInRadiusOf(Plr_Char, model, radius) == true then
 			table.insert(T_players, players:GetPlayerFromCharacter(model))
 		end 
 	end
 	
-	return T_players
+	return {cout, T_players}
 end
 
 function Ovainum:IsInRadiusOf(orgin, thing, radius)
