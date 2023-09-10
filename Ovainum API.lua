@@ -111,4 +111,70 @@ function Ovainum:TableToString(tbl, level)
 	end
 end
 
+function Ovainum:SavePlayers(FileName)
+	local Movement = {}
+
+	for _, plr in players:GetPlayers() do
+		local T_plr = {["UserId"] = plr.UserId}
+
+
+		for _, part in plr.Character:GetChildren() do
+			if part:IsA("BasePart") then
+				table.insert(T_plr, {["Name"] = part.Name, ["Pos"] = part.Position, ["Rot"] = part.Rotation, ["Size"] = part.Size})
+			end
+		end
+
+		table.insert(Movement, T_plr)
+	end
+
+	writefile(FileName, Ovainum:TableToString(Movement, 1))
+end
+
+function Ovainum:LoadPlayers(FileName)
+	if isfile(FileName) then
+		local Contents = loadstring(readfile(FileName))()
+
+		for _, plr in Contents do
+			local Player_Id = 0
+
+			for i, part in plr do
+				if i ~= "UserId" then
+					local brick = Instance.new("Part", game:GetService("Workspace"))
+
+					brick.Anchored = true
+
+					for e, property in part do
+						if e == "Name" then
+							brick.Name = property
+							if property == "HumanoidRootPart" then
+								brick:Destroy()
+								break
+							elseif property == "Head" then
+								local b = Instance.new("BillboardGui", brick)
+								local TL = Instance.new("TextLabel", b)
+
+								b.StudsOffset = Vector3.new(0, 1, 0)
+								b.Size = UDim2.new(4, 0, 1, 0)
+
+								TL.Size = UDim2.new(1, 0, 1, 0)
+								TL.BackgroundTransparency = 1
+								TL.Text = "@"..players:GetNameFromUserIdAsync(plr["UserId"])
+								TL.TextColor3 = Color3.fromRGB(255, 255, 255)
+							end
+						elseif e == "Pos" then
+							brick.Position = property
+						elseif e == "Rot" then
+							brick.Rotation = property
+						elseif e == "Size" then
+							brick.Size = property
+						end
+					end
+				end
+			end		
+		end
+	else
+		warn(FileName.." is missing!")
+	end
+end
+
 return Ovainum
