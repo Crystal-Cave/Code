@@ -79,9 +79,9 @@ function Ovainum:TableToString(tbl, level)
 			elseif type(v) == "table" then
 				Completed_String = Completed_String..Ovainum:TableToString(v, 2)..", "
 			elseif typeof(v) == "Vector2" then
-				Completed_String = Completed_String.."Vector2.new("..tostring(math.round(v.X))..", "..tostring(math.round(v.Y)).."), "
+				Completed_String = Completed_String.."Vector2.new("..tostring(v.X)..", "..tostring(v.Y).."), "
 			elseif typeof(v) == "Vector3" then
-				Completed_String = Completed_String.."Vector3.new("..tostring(math.round(v.X))..", "..tostring(math.round(v.Y))..", "..tostring(math.round(v.Z)).."), "
+				Completed_String = Completed_String.."Vector3.new("..tostring(v.X)..", "..tostring(v.Y)..", "..tostring(v.Z).."), "
 			end
 		else
 			if type(i) == "number" then
@@ -97,9 +97,9 @@ function Ovainum:TableToString(tbl, level)
 			elseif type(v) == "table" then
 				Completed_String = Completed_String..Ovainum:TableToString(v, 2).."}"
 			elseif typeof(v) == "Vector2" then
-				Completed_String = Completed_String.."Vector2.new("..tostring(math.round(v.X))..", "..tostring(math.round(v.Y))..")}"
+				Completed_String = Completed_String.."Vector2.new("..tostring(v.X)..", "..tostring(v.Y)..")}"
 			elseif typeof(v) == "Vector3" then
-				Completed_String = Completed_String.."Vector3.new("..tostring(math.round(v.X))..", "..tostring(math.round(v.Y))..", "..tostring(math.round(v.Z))..")}"
+				Completed_String = Completed_String.."Vector3.new("..tostring(v.X)..", "..tostring(v.Y)..", "..tostring(v.Z)..")}"
 			end
 		end
 	end
