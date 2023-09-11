@@ -111,7 +111,7 @@ function Ovainum:TableToString(tbl, level)
 	end
 end
 
-function Ovainum:SavePlayers(FileName)
+function Ovainum:SavePlayers()
 	local Movement = {}
 
 	for _, plr in players:GetPlayers() do
@@ -127,54 +127,76 @@ function Ovainum:SavePlayers(FileName)
 		table.insert(Movement, T_plr)
 	end
 
-	writefile(FileName, Ovainum:TableToString(Movement, 1))
+	return Movement
 end
 
-function Ovainum:LoadPlayers(FileName)
-	if isfile(FileName) then
-		local Contents = loadstring(readfile(FileName))()
+function Ovainum:LoadPlayers(tbl)
+	local Ovainum_Re
+	if game:GetService("Workspace"):FindFirstChild("Ovainum_Re") then
+		Ovainum_Re = game:GetService("Workspace").Ovainum_Re
+	else
+		Ovainum_Re = Instance.new("Folder", workspace)
+	end
 
-		for _, plr in Contents do
-			local Player_Id = 0
+	Ovainum_Re.Name = "Ovainum_Re"
 
-			for i, part in plr do
-				if i ~= "UserId" then
-					local brick = Instance.new("Part", game:GetService("Workspace"))
+	for _, plr in tbl do
+		for i, part in plr do
+			if i ~= "UserId" then
+				local brick = Instance.new("Part", game:GetService("Workspace").Ovainum_Re)
 
-					brick.Anchored = true
+				brick.Anchored = true
 
-					for e, property in part do
-						if e == "Name" then
-							brick.Name = property
-							if property == "HumanoidRootPart" then
-								brick:Destroy()
-								break
-							elseif property == "Head" then
-								local b = Instance.new("BillboardGui", brick)
-								local TL = Instance.new("TextLabel", b)
+				for e, property in part do
+					if e == "Name" then
+						brick.Name = property
+						if property == "HumanoidRootPart" then
+							brick:Destroy()
+							break
+						elseif property == "Head" then
+							local b = Instance.new("BillboardGui", brick)
+							local TL = Instance.new("TextLabel", b)
 
-								b.StudsOffset = Vector3.new(0, 1, 0)
-								b.Size = UDim2.new(4, 0, 1, 0)
+							b.StudsOffset = Vector3.new(0, 1, 0)
+							b.Size = UDim2.new(4, 0, 1, 0)
 
-								TL.Size = UDim2.new(1, 0, 1, 0)
-								TL.BackgroundTransparency = 1
-								TL.Text = "@"..players:GetNameFromUserIdAsync(plr["UserId"])
-								TL.TextColor3 = Color3.fromRGB(255, 255, 255)
-							end
-						elseif e == "Pos" then
-							brick.Position = property
-						elseif e == "Rot" then
-							brick.Rotation = property
-						elseif e == "Size" then
-							brick.Size = property
+							TL.Size = UDim2.new(1, 0, 1, 0)
+							TL.BackgroundTransparency = 1
+							TL.Text = "@"..players:GetNameFromUserIdAsync(plr["UserId"])
+							TL.TextColor3 = Color3.fromRGB(255, 255, 255)
 						end
+					elseif e == "Pos" then
+						brick.Position = property
+					elseif e == "Rot" then
+						brick.Rotation = property
+					elseif e == "Size" then
+						brick.Size = property
 					end
 				end
-			end		
-		end
-	else
-		warn(FileName.." is missing!")
+			end
+		end		
 	end
+end
+
+function Ovainum:ReAnimate(tbl)
+	local iteration = 0
+
+	while wait(0.5) do
+		if game:GetService("Workspace"):FindFirstChild("Ovainum_Re") then
+			for _, e in game:GetService("Workspace").Ovainum_Re:GetChildren() do
+				e:Destroy()
+			end
+		end
+
+		if iteration ~= Ovainum:GetMaxIterations(tbl) then
+			iteration += 1
+			Ovainum:LoadPlayers(tbl[iteration])
+		else
+			break
+		end
+	end
+
+	print("Exited")
 end
 
 return Ovainum
