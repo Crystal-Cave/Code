@@ -869,44 +869,31 @@ function Ovainum:TableToString(tbl, level)
 
 	for i, v in tbl do
 		iteration += 1
+
+		if type(i) == "number" then
+			Completed_String = Completed_String.."["..tostring(i).."] = "
+		elseif type(i) == "string" then
+			Completed_String = Completed_String..'["'..tostring(i)..'"] = '
+		end
+
+		if type(v) == "number" then
+			Completed_String = Completed_String..tostring(v)
+		elseif type(v) == "string" then
+			Completed_String = Completed_String..'"'..tostring(v)..'"'
+		elseif type(v) == "table" then
+			Completed_String = Completed_String..Ovainum:TableToString(v, 2)
+		elseif typeof(v) == "Vector2" then
+			Completed_String = Completed_String.."Vector2.new("..tostring(v.X)..", "..tostring(v.Y)..")"
+		elseif typeof(v) == "Vector3" then
+			Completed_String = Completed_String.."Vector3.new("..tostring(v.X)..", "..tostring(v.Y)..", "..tostring(v.Z)..")"
+		end
+
 		if iteration ~= Ovainum:GetMaxIterations(tbl) then
-			if type(i) == "number" then
-				Completed_String = Completed_String.."["..tostring(i).."] = "
-			elseif type(i) == "string" then
-				Completed_String = Completed_String..'["'..tostring(i)..'"] = '
-			end
-
-			if type(v) == "number" then
-				Completed_String = Completed_String..tostring(v)..", "
-			elseif type(v) == "string" then
-				Completed_String = Completed_String..'"'..tostring(v)..'", '
-			elseif type(v) == "table" then
-				Completed_String = Completed_String..Ovainum:TableToString(v, 2)..", "
-			elseif typeof(v) == "Vector2" then
-				Completed_String = Completed_String.."Vector2.new("..tostring(v.X)..", "..tostring(v.Y).."), "
-			elseif typeof(v) == "Vector3" then
-				Completed_String = Completed_String.."Vector3.new("..tostring(v.X)..", "..tostring(v.Y)..", "..tostring(v.Z).."), "
-			end
-		else
-			if type(i) == "number" then
-				Completed_String = Completed_String.."["..tostring(i).."] = "
-			elseif type(i) == "string" then
-				Completed_String = Completed_String..'["'..tostring(i)..'"] = '
-			end
-
-			if type(v) == "number" then
-				Completed_String = Completed_String..tostring(v).."}"
-			elseif type(v) == "string" then
-				Completed_String = Completed_String..'"'..tostring(v)..'"}'
-			elseif type(v) == "table" then
-				Completed_String = Completed_String..Ovainum:TableToString(v, 2).."}"
-			elseif typeof(v) == "Vector2" then
-				Completed_String = Completed_String.."Vector2.new("..tostring(v.X)..", "..tostring(v.Y)..")}"
-			elseif typeof(v) == "Vector3" then
-				Completed_String = Completed_String.."Vector3.new("..tostring(v.X)..", "..tostring(v.Y)..", "..tostring(v.Z)..")}"
-			end
+			Completed_String = Completed_String..", "
 		end
 	end
+
+	Completed_String = Completed_String.."}"
 
 	if level == 1 then
 		return "return "..Completed_String
