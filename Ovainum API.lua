@@ -803,6 +803,28 @@ function Ovainum:MakeInteract(name, title, parent, btnText, PreText)
 	return {Main_Frame, TextBox, Button}
 end
 
+function Ovainum:GoToCoords(element, x, y, g_time)
+	spawn(function()
+		local o_x = element.Position.X.Scale
+		local o_y = element.Position.Y.Scale
+
+		local delta_x = math.round((x - o_x) * 1000) / 1000
+		local delta_y = math.round((y - o_y) * 1000) / 1000
+
+		local subdivisions = g_time * 50
+
+		local iteration = 0
+
+		while wait(g_time/subdivisions) do
+			iteration += 1
+			if iteration > subdivisions then
+				break
+			end
+			element.Position = UDim2.new(o_x + ((iteration * delta_x)/subdivisions), 0, o_y + ((iteration * delta_y)/subdivisions), 0)
+		end
+	end)
+end
+
 function Ovainum:SetRotationTo(model, x, y, z)
 	model:PivotTo(CFrame.new(model:GetPivot().Position.X, model:GetPivot().Position.Y, model:GetPivot().Position.Z) * CFrame.Angles(x, y, z))
 end
