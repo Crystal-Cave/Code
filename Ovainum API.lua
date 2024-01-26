@@ -841,7 +841,7 @@ function Ovainum:GetNearbyPlayers(plr, radius)
 	end
 
 	for _, model in E_workspace:GetDescendants() do
-		if model:IsA("Model") and players:GetPlayerFromCharacter(model) ~= nil and players:GetPlayerFromCharacter(model) ~= plr and Ovainum:IsInRadiusOf(Plr_Char, model, radius) == true then
+		if model:IsA("Model") and players:GetPlayerFromCharacter(model) ~= nil and players:GetPlayerFromCharacter(model) ~= plr and Ovainum:GetDistanceBetween(Plr_Char, model) <= radius then
 			table.insert(T_players, players:GetPlayerFromCharacter(model))
 			cout += 1
 		end 
@@ -850,12 +850,13 @@ function Ovainum:GetNearbyPlayers(plr, radius)
 	return {cout, T_players}
 end
 
-function Ovainum:IsInRadiusOf(orgin, thing, radius)
-	if (orgin:GetPivot().Position.X - radius <= thing:GetPivot().Position.X and thing:GetPivot().Position.X <= orgin:GetPivot().Position.X + radius) and (orgin:GetPivot().Position.Y - radius <= thing:GetPivot().Position.Y and thing:GetPivot().Position.Y <= orgin:GetPivot().Position.Y + radius) and (orgin:GetPivot().Position.Z - radius <= thing:GetPivot().Position.Z and thing:GetPivot().Position.Z <= orgin:GetPivot().Position.Z + radius) then
-		return true
-	else
-		return false
-	end
+function Ovainum:GetDistanceBetween(Thing1, Thing2)
+	local dx = Thing2:GetPivot().Position.X - Thing1:GetPivot().Position.X
+	local dy = Thing2:GetPivot().Position.Y - Thing1:GetPivot().Position.Y
+	local dz = Thing2:GetPivot().Position.Z - Thing1:GetPivot().Position.Z
+
+	local dxy = math.sqrt(math.pow(dx, 2) + math.pow(dy, 2))
+	return math.sqrt(math.pow(dxy, 2) + math.pow(dz, 2))
 end
 
 function Ovainum:FixMessage(text)
