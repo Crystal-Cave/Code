@@ -540,7 +540,7 @@ function Ovainum:MakeButton(name, text, parent)
 	end
 
 	if Child_Instances > 12 then
-		parent.CanvasSize = UDim2.new(0, 0, 0.875 * (Child_Instances / 12))
+		parent.CanvasSize = UDim2.new(0, 0, 0.875 * (Child_Instances / 12), 0)
 		parent.Layout.CellSize = UDim2.new(1, 0, 1 / Child_Instances, 0)
 	else
 		parent.CanvasSize = UDim2.new(0, 0, 1 / 12, 0)
@@ -582,7 +582,7 @@ function Ovainum:MakeToggle(name, text, parent, premadeBV)
 	end
 
 	if Child_Instances > 12 then
-		parent.CanvasSize = UDim2.new(0, 0, 0.875 * (Child_Instances / 12))
+		parent.CanvasSize = UDim2.new(0, 0, 0.875 * (Child_Instances / 12), 0)
 		parent.Layout.CellSize = UDim2.new(1, 0, 1 / Child_Instances, 0)
 	else
 		parent.CanvasSize = UDim2.new(0, 0, 1 / 12, 0)
@@ -663,7 +663,7 @@ function Ovainum:MakeDisplay(name, text, parent)
 	end
 
 	if Child_Instances > 12 then
-		parent.CanvasSize = UDim2.new(0, 0, 0.875 * (Child_Instances / 12))
+		parent.CanvasSize = UDim2.new(0, 0, 0.875 * (Child_Instances / 12), 0)
 		parent.Layout.CellSize = UDim2.new(1, 0, 1 / Child_Instances, 0)
 	else
 		parent.CanvasSize = UDim2.new(0, 0, 1 / 12, 0)
@@ -704,7 +704,7 @@ function Ovainum:MakeTextbox(name, text, idleText, parent)
 	end
 
 	if Child_Instances > 12 then
-		parent.CanvasSize = UDim2.new(0, 0, 0.875 * (Child_Instances / 12))
+		parent.CanvasSize = UDim2.new(0, 0, 0.875 * (Child_Instances / 12), 0)
 		parent.Layout.CellSize = UDim2.new(1, 0, 1 / Child_Instances, 0)
 	else
 		parent.CanvasSize = UDim2.new(0, 0, 1 / 12, 0)
