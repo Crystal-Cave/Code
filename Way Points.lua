@@ -16,11 +16,12 @@ if game:GetService("Workspace"):FindFirstChild("Way Points") then
 
 else
 	local Way_Points_Folder = Instance.new("Folder")
+	
 	Way_Points_Folder.Parent = game:GetService("Workspace")
 	Way_Points_Folder.Name = "Way Points"
 end
 
---variables
+--Variables
 local App = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local CornerUI = Instance.new("UICorner")
