@@ -1013,4 +1013,27 @@ function Ovainum:ReAnimate(tbl)
 	print("Exited")
 end
 
+function Ovainum:FE_PartMove(ToBeMoved : BasePart, strength : IntValue)
+	local PartToFollow = Instance.new("Part", E_workspace)
+	local A1 = Instance.new("Attachment", ToBeMoved)
+	local A2 = Instance.new("Attachment", PartToFollow)
+	local Ori_Align = Instance.new("AlignOrientation", ToBeMoved)
+	local Pos_Align = Instance.new("AlignPosition", ToBeMoved)
+
+	Ori_Align.Attachment0 = A1
+	Ori_Align.Attachment1 = A2
+	Ori_Align.Responsiveness = strength
+
+	Pos_Align.Attachment0 = A1
+	Pos_Align.Attachment1 = A2
+	Pos_Align.Responsiveness = strength
+
+	PartToFollow.CanCollide = false
+	PartToFollow.Anchored = true
+	PartToFollow.Size = Vector3.new(1, 1, 1)
+	PartToFollow.Transparency = 1
+
+	return {PartToFollow, A1, A2}
+end
+
 return Ovainum
