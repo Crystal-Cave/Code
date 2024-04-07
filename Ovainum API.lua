@@ -1033,7 +1033,7 @@ function Ovainum:FE_PartMove(ToBeMoved : BasePart, strength : IntValue)
 	PartToFollow.Size = Vector3.new(1, 1, 1)
 	PartToFollow.Transparency = 1
 
-	return {PartToFollow, A1, A2}
+	return {PartToFollow, A1, A2, Ori_Align, Pos_Align}
 end
 
 return Ovainum
