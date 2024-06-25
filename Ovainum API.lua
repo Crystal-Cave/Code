@@ -225,7 +225,7 @@ function Ovainum:SayChildren(parent)
 	warn('ClassName : Name')
 
 	for _,child in parent:GetChildren() do
-		if game.Players:FindFirstChild(child.Name) then
+		if players:FindFirstChild(child.Name) then
 			print('Player-Character : '..child.Name)
 		else
 			print(child.ClassName..' : '..child.Name)
@@ -1013,7 +1013,7 @@ function Ovainum:ReAnimate(tbl)
 	print("Exited")
 end
 
-function Ovainum:FE_PartMove(ToBeMoved : BasePart, strength : IntValue)
+function Ovainum:FE_PartMove(ToBeMoved, strength)
 	local PartToFollow = Instance.new("Part", E_workspace)
 	local A1 = Instance.new("Attachment", ToBeMoved)
 	local A2 = Instance.new("Attachment", PartToFollow)
@@ -1033,7 +1033,7 @@ function Ovainum:FE_PartMove(ToBeMoved : BasePart, strength : IntValue)
 	PartToFollow.Size = Vector3.new(1, 1, 1)
 	PartToFollow.Transparency = 1
 
-	return {PartToFollow, A1, A2, Ori_Align, Pos_Align}
+	return {PartToFollow, A1, A2}
 end
 
 return Ovainum
