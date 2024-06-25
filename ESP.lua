@@ -48,7 +48,7 @@ function AddESP(player, team)
 end
 
 --Main
-for _,player in pairs(game.Players:GetPlayers()) do
+for _,player in game:GetService("Players"):GetPlayers() do
 	if player.UserId ~= LP.UserId and player.Character:FindFirstChild("HumanoidRootPart") and player.Character:FindFirstChild("Head") and player.Character:FindFirstChild("Humanoid").Health > 0 then
 		if player.Character.HumanoidRootPart:FindFirstChild("TeamColorFrame") and player.Character:FindFirstChild("TeamColorHighlight") then
 			print("Updating "..tostring(player).."'s ESP")
