@@ -840,9 +840,9 @@ function Ovainum:GetNearbyPlayers(plr, radius)
 		return {false}
 	end
 
-	for _, model in E_workspace:GetDescendants() do
-		if model:IsA("Model") and players:GetPlayerFromCharacter(model) ~= nil and players:GetPlayerFromCharacter(model) ~= plr and Ovainum:GetDistanceBetween(Plr_Char, model) <= radius then
-			table.insert(T_players, players:GetPlayerFromCharacter(model))
+	for _, T_plr in players:GetPlayers() do
+		if T_plr ~= plr and Ovainum:GetDistanceBetween(Plr_Char, T_plr.Character) <= radius then
+			table.insert(T_players, T_plr)
 			cout += 1
 		end 
 	end
@@ -930,7 +930,6 @@ function Ovainum:SavePlayers()
 
 	for _, plr in players:GetPlayers() do
 		local T_plr = {["UserId"] = plr.UserId}
-
 
 		for _, part in plr.Character:GetChildren() do
 			if part:IsA("BasePart") then
