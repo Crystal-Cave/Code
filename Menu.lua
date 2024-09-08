@@ -169,7 +169,7 @@ UIS.InputBegan:Connect(function(input)
 	end
 end)
 
-OvainumAPI:BetterNotify("<font color = \"rgb(0, 255, 90)\" face = \"FredokaOne\">Ovainum</font>", "Press <b>Insert</b> to toggle", 2)
+OvainumAPI:BetterNotify("<font color = \"rgb(200, 160, 64)\" face = \"FredokaOne\">Ovainum</font>", "Press <b>Insert</b> to toggle", 2)
 
 while getgenv().OvainumMenuLoaded == true do
 	getgenv().Reveal_NamesBV = Reveal_Names.Value
